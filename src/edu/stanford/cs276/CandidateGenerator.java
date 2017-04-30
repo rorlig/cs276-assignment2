@@ -11,6 +11,7 @@ public class CandidateGenerator implements Serializable {
 	private static CandidateGenerator cg_;
     private LanguageModel languageModel ;
     private double threshold = 0.0000001;
+    private NoisyChannelModel nsm;
 
     /**
   * Constructor
@@ -115,7 +116,7 @@ public class CandidateGenerator implements Serializable {
         for (int i = 0 ; i < query.length(); ++i ) {
             String cand = query.substring(0,i) + query.substring(i+1);
             if (languageModel.unigram.count(cand) != 0) {
-                CandidateResult candidateResult = new CandidateResult(cand, distance + 1);
+                CandidateResult candidateResult = new CandidateResult(cand, distance );
                 candidates.add(candidateResult);
             }
 
@@ -130,7 +131,7 @@ public class CandidateGenerator implements Serializable {
             for (int i = 0; i <= query.length(); ++i) {
                 String cand = query.substring(0, i) + anAlphabet + query.substring(i);
                 if (languageModel.unigram.count(cand) != 0) {
-                    CandidateResult candidateResult = new CandidateResult(cand, distance + 1);
+                    CandidateResult candidateResult = new CandidateResult(cand, distance );
                     candidates.add(candidateResult);
                 }
 //                candidates.add(query.substring(0, i) + anAlphabet + query.substring(i));
@@ -152,7 +153,7 @@ public class CandidateGenerator implements Serializable {
 
 //                newWord = anAlphabet;
                 if (languageModel.unigram.count(cand) != 0){
-                    CandidateResult candidateResult = new CandidateResult(cand, distance + 1);
+                    CandidateResult candidateResult = new CandidateResult(cand, distance );
                     candidates.add(candidateResult);
                 }
             }
@@ -178,7 +179,7 @@ public class CandidateGenerator implements Serializable {
 
 //                newWord = anAlphabet;
             if (languageModel.unigram.count(cand) != 0){
-                CandidateResult candidateResult = new CandidateResult(cand, distance + 1);
+                CandidateResult candidateResult = new CandidateResult(cand, distance );
                 candidates.add(candidateResult);
             }
         }
@@ -246,7 +247,7 @@ public class CandidateGenerator implements Serializable {
           if (languageModel.unigram.count(token) == 0) {
             //does not contain it..
               resultList.add(getCandidatesForWord(token));
-              candidateResult.add(getCandidatesForWord(token, 0));
+              candidateResult.add(getCandidatesForWord(token, 1));
           } else {
             //contains the word
 
@@ -310,9 +311,11 @@ public class CandidateGenerator implements Serializable {
             for (CandidateResult word: wordList) {
                 //append this to all the resultSet items
 //                System.out.println(copyList);
+                int distance = Integer.MIN_VALUE;
                 for (CandidateResult result: copyList) {
+                    distance = Math.max(result.getDistance(), distance);
 //                    System.out.println(" result " + result + " " + word);
-                    resultSet.add(new CandidateResult(result.getCandidate() + " " + word.getCandidate(), result.getDistance()));
+                    resultSet.add(new CandidateResult(result.getCandidate() + " " + word.getCandidate(), word.getDistance() + result.getDistance()));
 
                 }
             }
@@ -323,10 +326,10 @@ public class CandidateGenerator implements Serializable {
     private Set<CandidateResult> getCandidatesForWord(String query, int distance) {
         // Edit distance 1
         Set<CandidateResult> candidates = new HashSet<>();
-        candidates.addAll(getDeleteCandidates(query,0));
-        candidates.addAll(getInsertCandidates(query, 0));
-        candidates.addAll(getReplaceCandidate(query, 0));
-        candidates.addAll(getTransposeCandidates(query, 0));
+        candidates.addAll(getDeleteCandidates(query,distance));
+        candidates.addAll(getInsertCandidates(query, distance));
+        candidates.addAll(getReplaceCandidate(query, distance));
+        candidates.addAll(getTransposeCandidates(query, distance));
 
 //      System.out.println("before filter " + candidates.size());
 
@@ -334,12 +337,14 @@ public class CandidateGenerator implements Serializable {
 
 //      System.out.println("after filter " + candidates.size());
         // Edit distance 2
-        Set<CandidateResult> candidateD2 = getCandidates(candidates, 1);
+        Set<CandidateResult> candidateD2 = getCandidates(candidates, distance + 1);
 
 //      System.out.println("edit distance 2 before filter " + candidateD2.size());
 
 
         candidateD2.addAll(candidates);
+
+        candidates.clear();
 //        candidateD2 = filter(candidateD2);
 
 //      System.out.println("edit distance 2 after filter " + candidateD2.size());
@@ -408,6 +413,15 @@ public class CandidateGenerator implements Serializable {
 
     public void setLanguageModel(LanguageModel languageModel) {
         this.languageModel = languageModel;
+    }
+
+    public static CandidateGenerator get(LanguageModel languageModel, NoisyChannelModel nsm) {
+//        this.languageModel = languageModel;
+//        this.nsm = nsm;
+        if (cg_ == null) {
+            cg_ = new CandidateGenerator();
+        }
+        return cg_;
     }
 
 //    private Set<String> filterCandidatesInDictionary(Set<String> candidates) {

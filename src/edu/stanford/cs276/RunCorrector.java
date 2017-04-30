@@ -6,100 +6,249 @@ import java.io.FileReader;
 import java.util.Set;
 
 
+//public class RunCorrector {
+//
+//  public static LanguageModel languageModel;
+//  public static NoisyChannelModel nsm;
+//
+//  public static void main(String[] args) throws Exception {
+//
+//    // Parse input arguments
+//    String uniformOrEmpirical = null;
+//    String queryFilePath = null;
+//    String goldFilePath = null;
+//    String extra = null;
+//    BufferedReader goldFileReader = null;
+//
+//    if (args.length == 2) {
+//      // Default: run without extra credit code or gold data comparison
+//      uniformOrEmpirical = args[0];
+//      queryFilePath = args[1];
+//    }
+//    else if (args.length == 3) {
+//      uniformOrEmpirical = args[0];
+//      queryFilePath = args[1];
+//      if (args[2].equals("extra")) {
+//        extra = args[2];
+//      } else {
+//        goldFilePath = args[2];
+//      }
+//    }
+//    else if (args.length == 4) {
+//      uniformOrEmpirical = args[0];
+//      queryFilePath = args[1];
+//      extra = args[2];
+//      goldFilePath = args[3];
+//    }
+//    else {
+//      System.err.println(
+//          "Invalid arguments.  Argument count must be 2, 3 or 4 \n"
+//          + "./runcorrector <uniform | empirical> <query file> \n"
+//          + "./runcorrector <uniform | empirical> <query file> <gold file> \n"
+//          + "./runcorrector <uniform | empirical> <query file> <extra> \n"
+//          + "./runcorrector <uniform | empirical> <query file> <extra> <gold file> \n"
+//          + "SAMPLE: ./runcorrector empirical data/queries.txt \n"
+//          + "SAMPLE: ./runcorrector empirical data/queries.txt data/gold.txt \n"
+//          + "SAMPLE: ./runcorrector empirical data/queries.txt extra \n"
+//          + "SAMPLE: ./runcorrector empirical data/queries.txt extra data/gold.txt \n");
+//      return;
+//    }
+//
+//    if (goldFilePath != null) {
+//      goldFileReader = new BufferedReader(new FileReader(new File(goldFilePath)));
+//    }
+//
+//    // Load models from disk
+//    languageModel = LanguageModel.load();
+//    nsm = NoisyChannelModel.load();
+//    BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
+//    nsm.setProbabilityType(uniformOrEmpirical);
+//
+//
+//    CandidateGenerator candidateGenerator = CandidateGenerator.get();
+//
+//    candidateGenerator.setLanguageModel(languageModel);
+//
+//
+//    String query = null;
+//
+//    /*
+//     * Each line in the file represents one query. We loop over each query and find
+//     * the most likely correction
+//     */
+//    while ((query = queriesFileReader.readLine()) != null) {
+//
+//      String correctedQuery = query;
+//
+//      Set<CandidateResult> candidateSet  = candidateGenerator.getCandidates(query);
+//
+//      System.out.println("candidateSet size " + candidateSet.size());
+//      System.out.println("query: "  + query);
+//      for (CandidateResult candidate: candidateSet) {
+//        System.out.println("candidate: " + candidate);
+//      }
+//
+//        if (candidateSet.size()!=0) {
+////            getScores(candidateSet, query);
+//        }
+////      System.out.println(candidateSet);
+//      /*
+//       * Your code here: currently the correctQuery and original query are the same
+//       * Complete this implementation so that the spell corrector corrects the
+//       * (possibly) misspelled query
+//       *
+//       */
+//
+//      if ("extra".equals(extra)) {
+//        /*
+//         * If you are going to implement something regarding to running the corrector,
+//         * you can add code here. Feel free to move this code block to wherever
+//         * you think is appropriate. But make sure if you add "extra" parameter,
+//         * it will run code for your extra credit and it will run you basic
+//         * implementations without the "extra" parameter.
+//         */
+//      }
+//
+//      // If a gold file was provided, compare our correction to the gold correction
+//      // and output the running accuracy
+//      if (goldFileReader != null) {
+//        String goldQuery = goldFileReader.readLine();
+//        /*
+//         * You can do any bookkeeping you wish here - track accuracy, track where your solution
+//         * diverges from the gold file, what type of errors are more common etc. This might
+//         * help you improve your candidate generation/scoring steps
+//         */
+//      }
+//
+//      /*
+//       * Output the corrected query.
+//       * IMPORTANT: In your final submission DO NOT add any additional print statements as
+//       * this will interfere with the autograder
+//       */
+//      System.out.println(correctedQuery);
+//    }
+//    queriesFileReader.close();
+//  }
+//
+//    private static void getScores(Set<String> candidateSet, String query) {
+//
+//    }
+//
+////    private static ArrayList<Score> populateScores(ArrayList<StringBuilder> ar,
+////                                                   String query,
+////                                                   ArrayList<Set<String>> distanceList){
+////        ArrayList<Score> scoredList = new ArrayList<Score>(ar.size());
+////        for(int i = 0; i < ar.size(); i++){
+////            String str = ar.get(i).toString();
+////            scoredList.add(new Score(query,str,ms,nsm.ecm_,distanceList));
+////        }
+////        return scoredList;
+////    }
+//
+//}
+
+
 public class RunCorrector {
 
-  public static LanguageModel languageModel;
-  public static NoisyChannelModel nsm;
-
-  public static void main(String[] args) throws Exception {
-    
-    // Parse input arguments
-    String uniformOrEmpirical = null;
-    String queryFilePath = null;
-    String goldFilePath = null;
-    String extra = null;
-    BufferedReader goldFileReader = null;
-    
-    if (args.length == 2) {
-      // Default: run without extra credit code or gold data comparison
-      uniformOrEmpirical = args[0];
-      queryFilePath = args[1];
-    } 
-    else if (args.length == 3) {
-      uniformOrEmpirical = args[0];
-      queryFilePath = args[1];
-      if (args[2].equals("extra")) {
-        extra = args[2];
-      } else {
-        goldFilePath = args[2];
-      }
-    } 
-    else if (args.length == 4) {
-      uniformOrEmpirical = args[0];
-      queryFilePath = args[1];
-      extra = args[2];
-      goldFilePath = args[3];
-    } 
-    else {
-      System.err.println(
-          "Invalid arguments.  Argument count must be 2, 3 or 4 \n"
-          + "./runcorrector <uniform | empirical> <query file> \n"
-          + "./runcorrector <uniform | empirical> <query file> <gold file> \n"
-          + "./runcorrector <uniform | empirical> <query file> <extra> \n"
-          + "./runcorrector <uniform | empirical> <query file> <extra> <gold file> \n"
-          + "SAMPLE: ./runcorrector empirical data/queries.txt \n"
-          + "SAMPLE: ./runcorrector empirical data/queries.txt data/gold.txt \n"
-          + "SAMPLE: ./runcorrector empirical data/queries.txt extra \n"
-          + "SAMPLE: ./runcorrector empirical data/queries.txt extra data/gold.txt \n");
-      return;
-    }
-
-    if (goldFilePath != null) {
-      goldFileReader = new BufferedReader(new FileReader(new File(goldFilePath)));
-    }
-
-    // Load models from disk
-    languageModel = LanguageModel.load();
-    nsm = NoisyChannelModel.load();
-    BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
-    nsm.setProbabilityType(uniformOrEmpirical);
+    public static LanguageModel languageModel;
+    public static NoisyChannelModel nsm;
+    private static final int distanceThreshold=2;
+    private static final double probInitialCorrectQuery=0.90;
 
 
-    CandidateGenerator candidateGenerator = CandidateGenerator.get();
 
-    candidateGenerator.setLanguageModel(languageModel);
+    public static void main(String[] args) throws Exception {
 
+        // Parse input arguments
+        String uniformOrEmpirical = null;
+        String queryFilePath = null;
+        String goldFilePath = null;
+        String extra = null;
+        BufferedReader goldFileReader = null;
 
-    String query = null;
+        if (args.length == 2) {
+            // Default: run without extra credit code or gold data comparison
+            uniformOrEmpirical = args[0];
+            queryFilePath = args[1];
+        }
+        else if (args.length == 3) {
+            uniformOrEmpirical = args[0];
+            queryFilePath = args[1];
+            if (args[2].equals("extra")) {
+                extra = args[2];
+            } else {
+                goldFilePath = args[2];
+            }
+        }
+        else if (args.length == 4) {
+            uniformOrEmpirical = args[0];
+            queryFilePath = args[1];
+            extra = args[2];
+            goldFilePath = args[3];
+        }
+        else {
+            System.err.println(
+                    "Invalid arguments.  Argument count must be 2, 3 or 4 \n"
+                            + "./runcorrector <uniform | empirical> <query file> \n"
+                            + "./runcorrector <uniform | empirical> <query file> <gold file> \n"
+                            + "./runcorrector <uniform | empirical> <query file> <extra> \n"
+                            + "./runcorrector <uniform | empirical> <query file> <extra> <gold file> \n"
+                            + "SAMPLE: ./runcorrector empirical data/queries.txt \n"
+                            + "SAMPLE: ./runcorrector empirical data/queries.txt data/gold.txt \n"
+                            + "SAMPLE: ./runcorrector empirical data/queries.txt extra \n"
+                            + "SAMPLE: ./runcorrector empirical data/queries.txt extra data/gold.txt \n");
+            return;
+        }
+
+        if (goldFilePath != null) {
+            goldFileReader = new BufferedReader(new FileReader(new File(goldFilePath)));
+        }
+
+        // Load models from disk
+        languageModel = LanguageModel.load();
+        nsm = NoisyChannelModel.load();
+        BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
+        nsm.setProbabilityType(uniformOrEmpirical);
+
+        String query = null;
 
     /*
      * Each line in the file represents one query. We loop over each query and find
      * the most likely correction
      */
-    while ((query = queriesFileReader.readLine()) != null) {
+        String result;
+        double prob;
+        int correct=0;
+        CandidateGenerator cg=CandidateGenerator.get(RunCorrector.languageModel, RunCorrector.nsm);
+        cg.setLanguageModel(languageModel);
 
-      String correctedQuery = query;
+        while ((query = queriesFileReader.readLine()) != null) {
+            result="";
+            prob= -100000000D;
+            Set<CandidateResult> candidateSet  = cg.getCandidates(query);
+            System.out.println("candidateSet " + candidateSet.size());
+//            if (candidateSet.size()==0){
+//                System.out.println("No Candidates generated for: "+query);
+//                continue;
+//            }
 
-      Set<CandidateResult> candidateSet  = candidateGenerator.getCandidates(query);
+            for (CandidateResult candidate: candidateSet) {
+//                    System.out.println("candidate: " + candidate);
+                    double p=calculateProbability(query,candidate.getCandidate(),candidate.getDistance());
+                    if (p>prob){
+                        prob=p;
+                        result=candidate.getCandidate();
+                    }
+             }
+//            for (String corrQuery: candidateSet.){
+//                double p=calculateProbability(query,corrQuery,candidates.get(corrQuery));
+//                if (p>prob){
+//                    prob=p;
+//                    result=corrQuery;
+//                }
+//            }
 
-      System.out.println("candidateSet size " + candidateSet.size());
-      System.out.println("query: "  + query);
-      for (CandidateResult candidate: candidateSet) {
-        System.out.println("candidate: " + candidate);
-      }
-
-        if (candidateSet.size()!=0) {
-//            getScores(candidateSet, query);
-        }
-//      System.out.println(candidateSet);
-      /*
-       * Your code here: currently the correctQuery and original query are the same
-       * Complete this implementation so that the spell corrector corrects the 
-       * (possibly) misspelled query
-       * 
-       */
-      
-      if ("extra".equals(extra)) {
+            if ("extra".equals(extra)) {
         /*
          * If you are going to implement something regarding to running the corrector,
          * you can add code here. Feel free to move this code block to wherever
@@ -107,42 +256,83 @@ public class RunCorrector {
          * it will run code for your extra credit and it will run you basic
          * implementations without the "extra" parameter.
          */
-      }
+            }
 
-      // If a gold file was provided, compare our correction to the gold correction
-      // and output the running accuracy
-      if (goldFileReader != null) {
-        String goldQuery = goldFileReader.readLine();
+            // If a gold file was provided, compare our correction to the gold correction
+            // and output the running accuracy
+            if (goldFileReader != null) {
+                String goldQuery = goldFileReader.readLine();
+                System.out.println("goldQuery " + goldQuery + " result " + result);
+                if (goldQuery.equalsIgnoreCase(result))
+                    correct++;
         /*
          * You can do any bookkeeping you wish here - track accuracy, track where your solution
          * diverges from the gold file, what type of errors are more common etc. This might
-         * help you improve your candidate generation/scoring steps 
+         * help you improve your candidate generation/scoring steps
          */
-      }
-      
+            }
+
       /*
        * Output the corrected query.
-       * IMPORTANT: In your final submission DO NOT add any additional print statements as 
+       * IMPORTANT: In your final submission DO NOT add any additional print statements as
        * this will interfere with the autograder
        */
-      System.out.println(correctedQuery);
-    }
-    queriesFileReader.close();
-  }
-
-    private static void getScores(Set<String> candidateSet, String query) {
-
+            System.out.println("result " + result );
+        }
+        System.out.println("correct terms " + correct);
+        queriesFileReader.close();
     }
 
-//    private static ArrayList<Score> populateScores(ArrayList<StringBuilder> ar,
-//                                                   String query,
-//                                                   ArrayList<Set<String>> distanceList){
-//        ArrayList<Score> scoredList = new ArrayList<Score>(ar.size());
-//        for(int i = 0; i < ar.size(); i++){
-//            String str = ar.get(i).toString();
-//            scoredList.add(new Score(query,str,ms,nsm.ecm_,distanceList));
-//        }
-//        return scoredList;
-//    }
+    private static double calculateProbability(String origQuery, String corrQuery, int dist){
+        double prob=0D;
+        //get the edit probability (conditional probability of P(R/Q) where R is orig
+        //int distance = getDistance(origQuery, corrQuery);
+        prob=Math.log(nsm.ecm_.editProbability(origQuery,corrQuery,dist));
+        //calculate the probability of P(Q) using the lang model
+        prob+=langModelProb(corrQuery);
+        return prob;
+    }
 
+    private static double langModelProb(String corrQuery){
+        String[] tokens=corrQuery.split("\\s+");
+        double prob=0;
+        double lambda = 0.1; //for interpolation
+        for(int i=0;i<tokens.length;i++){
+            if (i==0)
+                prob+=Math.log(
+                        (double)languageModel.unigram.count(tokens[i])/languageModel.unigram.termCount());
+            else{
+                double temp=0D;
+                temp+=(lambda * (double)languageModel.unigram.count(tokens[i])/languageModel.unigram.termCount());
+                temp+=((1-lambda)*(double) languageModel.bigram.count(tokens[i-1]+"\t"+tokens[i])/
+                        languageModel.unigram.count(tokens[i-1]));
+                prob+=Math.log(temp);
+            }
+
+        }
+        return prob;
+    }
+
+    //Damerau-Levenshtein edit distance at a token level
+    private static int getDistance(String t1, String t2){
+        int[][] matrix = new int[t1.length()+1][t2.length()+1];
+        for (int i=1;i<=t1.length();i++)
+            matrix[i][0]=i;
+
+        for (int j=1;j<=t2.length();j++)
+            matrix[j][0]=j;
+
+        for (int i=0;i<t1.length();i++) {
+            for (int j = 0; j < t2.length(); j++) {
+                //substituion, deletion, insertion
+                matrix[i + 1][j + 1] = Math.min(matrix[i][j] + (t1.charAt(i) == t2.charAt(j) ? 0 : 1),
+                        Math.min(matrix[i][j + 1] + 1, matrix[i + 1][j] + 1));
+                //transposition
+                if (i>0 && j>0 && t1.charAt(i)==t2.charAt(j-1) && t1.charAt(i-1)==t2.charAt(j)){
+                    matrix[i+1][j+1]=Math.min(matrix[i+1][j+1], matrix[i-1][j-1]+1);
+                }
+            }
+        }
+        return matrix[t1.length()][t2.length()];
+    }
 }

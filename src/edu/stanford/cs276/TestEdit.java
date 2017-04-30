@@ -24,7 +24,7 @@ public class TestEdit {
 //            BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File("data/queries.txt")));
             nsm.setProbabilityType("uniform");
             cg.setLanguageModel(languageModel);
-            Set<CandidateResult> candidateSet = cg.getCandidates("304669 101719 4063882026 75360");
+            Set<CandidateResult> candidateSet = cg.getCandidates("hp support website api doxygen documantation p04 06q");
             System.out.println("assert size "  + candidateSet.size());
             for (CandidateResult candidate : candidateSet){
                 System.out.println(candidate);
