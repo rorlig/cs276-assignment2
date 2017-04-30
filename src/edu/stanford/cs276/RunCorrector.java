@@ -80,9 +80,18 @@ public class RunCorrector {
 
       String correctedQuery = query;
 
-      Set<String> candidateSet  = candidateGenerator.getCandidates(query);
+      Set<CandidateResult> candidateSet  = candidateGenerator.getCandidates(query);
 
-      System.out.println(candidateSet);
+      System.out.println("candidateSet size " + candidateSet.size());
+      System.out.println("query: "  + query);
+      for (CandidateResult candidate: candidateSet) {
+        System.out.println("candidate: " + candidate);
+      }
+
+        if (candidateSet.size()!=0) {
+//            getScores(candidateSet, query);
+        }
+//      System.out.println(candidateSet);
       /*
        * Your code here: currently the correctQuery and original query are the same
        * Complete this implementation so that the spell corrector corrects the 
@@ -120,4 +129,20 @@ public class RunCorrector {
     }
     queriesFileReader.close();
   }
+
+    private static void getScores(Set<String> candidateSet, String query) {
+
+    }
+
+//    private static ArrayList<Score> populateScores(ArrayList<StringBuilder> ar,
+//                                                   String query,
+//                                                   ArrayList<Set<String>> distanceList){
+//        ArrayList<Score> scoredList = new ArrayList<Score>(ar.size());
+//        for(int i = 0; i < ar.size(); i++){
+//            String str = ar.get(i).toString();
+//            scoredList.add(new Score(query,str,ms,nsm.ecm_,distanceList));
+//        }
+//        return scoredList;
+//    }
+
 }

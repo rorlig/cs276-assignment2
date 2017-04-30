@@ -33,4 +33,12 @@ public class Dictionary implements Serializable {
       return 0;
     }
   }
+
+  public int getTermCount() {
+    return termCount;
+  }
+
+  public HashMap<String, Integer> getMap() {
+    return map;
+  }
 }

@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.stanford.cs276.util.Dictionary;
 
@@ -26,6 +28,11 @@ public class LanguageModel implements Serializable {
   Dictionary unigram = new Dictionary();
 
   Dictionary bigram = new Dictionary();
+
+  public Map<String, Double> unigramProb = new HashMap<>();
+
+  public Map<String, Double> bigramProb = new HashMap<>();
+
 
 
   /*
@@ -70,15 +77,16 @@ public class LanguageModel implements Serializable {
          * TODO: Your code here
          */
         //store the unigram & bigrams
-        String startToken = "$";
+//        String startToken = "$";
+        String prev = null;
         String[] tokens = line.trim().split("\\s+");
         for (String token: tokens){
-            String nextToken = token;
-            unigram.add(nextToken);
-            bigram.add(startToken + " " + nextToken);
-            startToken = nextToken;
+//            String nextToken = token;
+            unigram.add(token);
+            bigram.add(prev + " " + token);
+            prev = token;
         }
-        bigram.add(tokens[tokens.length-1] + " " + startToken);
+//        bigram.add(tokens[tokens.length-1] + " " + startToken);
 
 //        for (int i = 0; i < tokens.length -1 ; ++i) {
 //          unigram.add(tokens[i]);
@@ -91,7 +99,22 @@ public class LanguageModel implements Serializable {
       }
       input.close();
     }
-    System.out.println("Done.");
+    System.out.println("Done building the unigram & bigram probablities ");
+
+    //compute probablities
+//    for ( String unig: unigram.getMap().keySet()) {
+//        double pr = Math.log(unigram.getMap().get(unig)) - Math.log((double)unigram.getTermCount());
+//        unigramProb.put(unig, pr);
+//    }
+//
+//    for (String bigramItem: bigram.getMap().keySet()) {
+//      String tokens[] = bigramItem.split(" ");
+//      double p_mle = Math.log(1 - Config.LAMBDA) + Math.log(bigram.getMap().get(bigramItem)) - Math.log((double) unigram.getMap().get(tokens[0]));
+//
+//      double prob = (Math.log(Config.LAMBDA) + unigram.getMap().get(tokens[1]) + p_mle;
+//      bigramProb.put(bigramItem, prob);
+//    }
+
   }
 
   /**
