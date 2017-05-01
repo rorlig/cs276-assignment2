@@ -26,14 +26,7 @@ public class LanguageModel implements Serializable {
   private static LanguageModel lm_;
 
   Dictionary unigram = new Dictionary();
-
   Dictionary bigram = new Dictionary();
-
-  public Map<String, Double> unigramProb = new HashMap<>();
-
-  public Map<String, Double> bigramProb = new HashMap<>();
-
-
 
   /*
    * Feel free to add more members here (e.g., a data structure that stores bigrams)
@@ -86,35 +79,10 @@ public class LanguageModel implements Serializable {
             bigram.add(prev + " " + token);
             prev = token;
         }
-//        bigram.add(tokens[tokens.length-1] + " " + startToken);
-
-//        for (int i = 0; i < tokens.length -1 ; ++i) {
-//          unigram.add(tokens[i]);
-//          bigram.add(tokens[i] + " " + tokens[i+1]);
-//        }
-//        //add the token.
-//        unigram.add(tokens[tokens.length]);
-
-//        unigram.add("cs276");
       }
       input.close();
     }
     System.out.println("Done building the unigram & bigram probablities ");
-
-    //compute probablities
-//    for ( String unig: unigram.getMap().keySet()) {
-//        double pr = Math.log(unigram.getMap().get(unig)) - Math.log((double)unigram.getTermCount());
-//        unigramProb.put(unig, pr);
-//    }
-//
-//    for (String bigramItem: bigram.getMap().keySet()) {
-//      String tokens[] = bigramItem.split(" ");
-//      double p_mle = Math.log(1 - Config.LAMBDA) + Math.log(bigram.getMap().get(bigramItem)) - Math.log((double) unigram.getMap().get(tokens[0]));
-//
-//      double prob = (Math.log(Config.LAMBDA) + unigram.getMap().get(tokens[1]) + p_mle;
-//      bigramProb.put(bigramItem, prob);
-//    }
-
   }
 
   /**

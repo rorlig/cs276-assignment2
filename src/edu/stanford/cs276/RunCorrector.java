@@ -152,8 +152,8 @@ public class RunCorrector {
 
     public static LanguageModel languageModel;
     public static NoisyChannelModel nsm;
-    private static final int distanceThreshold=2;
-    private static final double probInitialCorrectQuery=0.90;
+    private static double lambda = 0.05;
+    private static double mu=0.05;
 
 
 
@@ -200,14 +200,9 @@ public class RunCorrector {
             return;
         }
 
-        if (goldFilePath != null) {
-            goldFileReader = new BufferedReader(new FileReader(new File(goldFilePath)));
-        }
-
         // Load models from disk
         languageModel = LanguageModel.load();
         nsm = NoisyChannelModel.load();
-        BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
         nsm.setProbabilityType(uniformOrEmpirical);
 
         String query = null;
@@ -216,39 +211,40 @@ public class RunCorrector {
      * Each line in the file represents one query. We loop over each query and find
      * the most likely correction
      */
-        String result;
-        double prob;
-        int correct=0;
+
         CandidateGenerator cg=CandidateGenerator.get(RunCorrector.languageModel, RunCorrector.nsm);
         cg.setLanguageModel(languageModel);
 
-        while ((query = queriesFileReader.readLine()) != null) {
-            result="";
-            prob= -100000000D;
-            Set<CandidateResult> candidateSet  = cg.getCandidates(query);
-            System.out.println("candidateSet " + candidateSet.size());
-//            if (candidateSet.size()==0){
-//                System.out.println("No Candidates generated for: "+query);
-//                continue;
-//            }
+        for (int i=1;i<=10;i++) {
+            lambda = i*0.01;
+            for (int j=1;j<=10;j++) {
+                mu=j*0.001;
 
-            for (CandidateResult candidate: candidateSet) {
-//                    System.out.println("candidate: " + candidate);
-                    double p=calculateProbability(query,candidate.getCandidate(),candidate.getDistance());
-                    if (p>prob){
-                        prob=p;
-                        result=candidate.getCandidate();
+                BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
+                if (goldFilePath != null) {
+                    goldFileReader = new BufferedReader(new FileReader(new File(goldFilePath)));
+                }
+
+                String result;
+                double prob;
+                int correct = 0;
+
+                while ((query = queriesFileReader.readLine()) != null) {
+                    result = "";
+                    prob = -100000000D;
+                    Set<CandidateResult> candidateSet = cg.getCandidates(query);
+
+                    for (CandidateResult candidate : candidateSet) {
+                        double p = calculateProbability(query, candidate.getCandidate(), candidate.getDistance());
+                        if (p > prob) {
+                            prob = p;
+                            result = candidate.getCandidate();
+                        }
                     }
-             }
-//            for (String corrQuery: candidateSet.){
-//                double p=calculateProbability(query,corrQuery,candidates.get(corrQuery));
-//                if (p>prob){
-//                    prob=p;
-//                    result=corrQuery;
-//                }
-//            }
+                    if (result.length() == 0)
+                        result = query;
 
-            if ("extra".equals(extra)) {
+                    if ("extra".equals(extra)) {
         /*
          * If you are going to implement something regarding to running the corrector,
          * you can add code here. Feel free to move this code block to wherever
@@ -256,31 +252,28 @@ public class RunCorrector {
          * it will run code for your extra credit and it will run you basic
          * implementations without the "extra" parameter.
          */
-            }
+                    }
 
-            // If a gold file was provided, compare our correction to the gold correction
-            // and output the running accuracy
-            if (goldFileReader != null) {
-                String goldQuery = goldFileReader.readLine();
-                System.out.println("goldQuery " + goldQuery + " result " + result);
-                if (goldQuery.equalsIgnoreCase(result))
-                    correct++;
+                    // If a gold file was provided, compare our correction to the gold correction
+                    // and output the running accuracy
+                    if (goldFileReader != null) {
+                        String goldQuery = goldFileReader.readLine();
+                        //System.out.println("goldQuery " + goldQuery + " result " + result);
+                        if (goldQuery.equalsIgnoreCase(result))
+                            correct++;
         /*
          * You can do any bookkeeping you wish here - track accuracy, track where your solution
          * diverges from the gold file, what type of errors are more common etc. This might
          * help you improve your candidate generation/scoring steps
          */
-            }
+                    }
 
-      /*
-       * Output the corrected query.
-       * IMPORTANT: In your final submission DO NOT add any additional print statements as
-       * this will interfere with the autograder
-       */
-            System.out.println("result " + result );
+                    //System.out.println(result);
+                }
+                System.out.println(lambda +","+mu+"," + correct);
+                queriesFileReader.close();
+            }
         }
-        System.out.println("correct terms " + correct);
-        queriesFileReader.close();
     }
 
     private static double calculateProbability(String origQuery, String corrQuery, int dist){
@@ -296,17 +289,16 @@ public class RunCorrector {
     private static double langModelProb(String corrQuery){
         String[] tokens=corrQuery.split("\\s+");
         double prob=0;
-        double lambda = 0.1; //for interpolation
         for(int i=0;i<tokens.length;i++){
             if (i==0)
-                prob+=Math.log(
+                prob+=mu*Math.log(
                         (double)languageModel.unigram.count(tokens[i])/languageModel.unigram.termCount());
             else{
                 double temp=0D;
                 temp+=(lambda * (double)languageModel.unigram.count(tokens[i])/languageModel.unigram.termCount());
-                temp+=((1-lambda)*(double) languageModel.bigram.count(tokens[i-1]+"\t"+tokens[i])/
-                        languageModel.unigram.count(tokens[i-1]));
-                prob+=Math.log(temp);
+                temp+=((1-lambda)*(double) languageModel.bigram.count(tokens[i-1]+"\t"+tokens[i]) * languageModel.unigram.termCount()/
+                        (languageModel.bigram.termCount()*languageModel.unigram.count(tokens[i-1])));
+                prob+=mu*Math.log(temp);
             }
 
         }
