@@ -3,6 +3,7 @@ package edu.stanford.cs276;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Set;
 
 
@@ -159,6 +160,7 @@ public class RunCorrector {
 
     public static void main(String[] args) throws Exception {
 
+
         // Parse input arguments
         String uniformOrEmpirical = null;
         String queryFilePath = null;
@@ -215,10 +217,12 @@ public class RunCorrector {
         CandidateGenerator cg=CandidateGenerator.get(RunCorrector.languageModel, RunCorrector.nsm);
         cg.setLanguageModel(languageModel);
 
-        for (int i=1;i<=10;i++) {
-            lambda = i*0.01;
-            for (int j=1;j<=10;j++) {
-                mu=j*0.001;
+        for (int i=1;i<2;i++) {
+            //lambda = i*0.05;
+            lambda=0.05;
+            for (int j=1;j<2;j++) {
+                //mu=1.0/j;
+                mu=0.25;
 
                 BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
                 if (goldFilePath != null) {
@@ -230,10 +234,12 @@ public class RunCorrector {
                 int correct = 0;
 
                 while ((query = queriesFileReader.readLine()) != null) {
+                    query=query.trim();
                     result = "";
-                    prob = -100000000D;
-                    Set<CandidateResult> candidateSet = cg.getCandidates(query);
 
+                    prob = -100000000D;
+
+                    Set<CandidateResult> candidateSet = cg.getCandidates(query);
                     for (CandidateResult candidate : candidateSet) {
                         double p = calculateProbability(query, candidate.getCandidate(), candidate.getDistance());
                         if (p > prob) {
@@ -241,8 +247,17 @@ public class RunCorrector {
                             result = candidate.getCandidate();
                         }
                     }
-                    if (result.length() == 0)
-                        result = query;
+
+                    /*
+                    HashMap<String, Integer> candQueries=cg.getCandidates(query);
+                    for(String qry:candQueries.keySet()){
+                        double p = calculateProbability(query,qry,candQueries.get(qry));
+                        if (p>prob){
+                            prob=p;
+                            result=qry;
+                        }
+                    }
+                    */
 
                     if ("extra".equals(extra)) {
         /*
@@ -258,19 +273,27 @@ public class RunCorrector {
                     // and output the running accuracy
                     if (goldFileReader != null) {
                         String goldQuery = goldFileReader.readLine();
-                        //System.out.println("goldQuery " + goldQuery + " result " + result);
-                        if (goldQuery.equalsIgnoreCase(result))
+                        if (goldQuery.equals(result)) {
                             correct++;
+                            System.out.println("************"+result);
+                        } else {
+                            System.out.println("xxxxxxxxxxxxx"+result+"---"+goldQuery+"xxxxxxxxx"+getDistance(result,goldQuery));
+                        }
+                        //else
+                          //  System.out.println(query+"-"+result+":"+goldQuery+":"+getDistance(goldQuery,query));
         /*
          * You can do any bookkeeping you wish here - track accuracy, track where your solution
          * diverges from the gold file, what type of errors are more common etc. This might
          * help you improve your candidate generation/scoring steps
          */
                     }
-
-                    //System.out.println(result);
+                    /*String freq="";
+                    for (String str:result.split("\\s+"))
+                        freq=freq+languageModel.unigram.getMap().get(str)+",";
+                    System.out.println(result+"---"+freq);*/
                 }
-                System.out.println(lambda +","+mu+"," + correct);
+                //System.out.println(lambda +","+mu+"," + correct);
+                System.out.println(correct);
                 queriesFileReader.close();
             }
         }
@@ -296,8 +319,8 @@ public class RunCorrector {
             else{
                 double temp=0D;
                 temp+=(lambda * (double)languageModel.unigram.count(tokens[i])/languageModel.unigram.termCount());
-                temp+=((1-lambda)*(double) languageModel.bigram.count(tokens[i-1]+"\t"+tokens[i]) * languageModel.unigram.termCount()/
-                        (languageModel.bigram.termCount()*languageModel.unigram.count(tokens[i-1])));
+                temp+=((1-lambda)*(double) languageModel.bigram.count(tokens[i-1]+"|"+tokens[i])/
+                        (languageModel.unigram.count(tokens[i-1])));
                 prob+=mu*Math.log(temp);
             }
 
@@ -312,7 +335,7 @@ public class RunCorrector {
             matrix[i][0]=i;
 
         for (int j=1;j<=t2.length();j++)
-            matrix[j][0]=j;
+            matrix[0][j]=j;
 
         for (int i=0;i<t1.length();i++) {
             for (int j = 0; j < t2.length(); j++) {

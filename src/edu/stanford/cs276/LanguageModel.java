@@ -70,13 +70,13 @@ public class LanguageModel implements Serializable {
          * TODO: Your code here
          */
         //store the unigram & bigrams
-//        String startToken = "$";
+        //String startToken = "$";
         String prev = null;
         String[] tokens = line.trim().split("\\s+");
         for (String token: tokens){
 //            String nextToken = token;
             unigram.add(token);
-            bigram.add(prev + " " + token);
+            bigram.add(prev + "|" + token);
             prev = token;
         }
       }
