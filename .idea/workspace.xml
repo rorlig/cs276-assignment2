@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1980ffe-e5fa-42d0-98ac-05f59549fa4d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/languageModel" afterPath="$PROJECT_DIR$/languageModel" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/CandidateGenerator.class" afterPath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/CandidateGenerator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/CandidateResult.class" afterPath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/CandidateResult.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/LanguageModel.class" afterPath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/LanguageModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/RunCorrector.class" afterPath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/RunCorrector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/TestEdit.class" afterPath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/TestEdit.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/UniformCostModel.class" afterPath="$PROJECT_DIR$/out/production/pa2-skeleton/edu/stanford/cs276/UniformCostModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/noisyChannel" afterPath="$PROJECT_DIR$/noisyChannel" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateResult.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/LanguageModel.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/LanguageModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/Config.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/Config.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/EmpiricalCostModel.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/EmpiricalCostModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java" />
@@ -63,14 +56,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RunCorrector.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RunCorrector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="236" column="0" lean-forward="true" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+            <state relative-caret-position="331">
+              <caret line="208" column="46" lean-forward="false" selection-start-line="208" selection-start-column="46" selection-end-line="208" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1494101182000" expanded="true" signature="17001:17644" ph="{...}" />
+                <marker date="1494105844000" expanded="true" signature="17001:17644" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -108,23 +101,22 @@
       <file leaf-file-name="CandidateGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2220">
-              <caret line="148" column="84" lean-forward="false" selection-start-line="148" selection-start-column="79" selection-end-line="148" selection-end-column="84" />
+            <state relative-caret-position="15">
+              <caret line="157" column="84" lean-forward="false" selection-start-line="157" selection-start-column="84" selection-end-line="157" selection-end-column="84" />
               <folding>
-                <element signature="e#11695#11696#0" expanded="false" />
-                <element signature="e#11745#11746#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UniformCostModel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UniformCostModel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="22" lean-forward="false" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+            <state relative-caret-position="255">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
-                <marker date="1494099783000" expanded="true" signature="875:879" ph="{...}" />
+                <marker date="1494105881000" expanded="true" signature="683:686" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -194,9 +186,9 @@
         <option value="$PROJECT_DIR$/src/edu/stanford/cs276/LanguageModel.java" />
         <option value="$PROJECT_DIR$/src1/edu/stanford/cs276/CandidateGenerator.java" />
         <option value="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateResult.java" />
-        <option value="$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java" />
-        <option value="$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java" />
         <option value="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator2.java" />
+        <option value="$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java" />
+        <option value="$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java" />
       </list>
     </option>
   </component>
@@ -991,12 +983,12 @@
       <workItem from="1493568337027" duration="21580000" />
       <workItem from="1494089159833" duration="1242000" />
       <workItem from="1494090612202" duration="10329000" />
-      <workItem from="1494101014453" duration="3071000" />
+      <workItem from="1494101014453" duration="3309000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73540000" />
+    <option name="totallyTimeSpent" value="73778000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1013,7 +1005,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29438204" sideWeight="0.50479233" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36741573" sideWeight="0.5085197" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1031,9 +1023,9 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29438204" sideWeight="0.49520767" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29438204" sideWeight="0.49520767" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286517" sideWeight="0.49743262" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36797753" sideWeight="0.4935815" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36741573" sideWeight="0.4914803" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20713525" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2859155" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1061,19 +1053,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java</url>
-          <line>25</line>
+          <line>77</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java</url>
-          <line>23</line>
+          <line>75</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java</url>
-          <line>20</line>
+          <line>72</line>
           <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
@@ -1085,25 +1077,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java</url>
-          <line>26</line>
+          <line>78</line>
           <properties />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java</url>
-          <line>240</line>
+          <line>252</line>
           <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java</url>
-          <line>232</line>
+          <line>244</line>
           <properties />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java</url>
-          <line>311</line>
+          <line>307</line>
           <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
@@ -1149,8 +1141,7 @@
         <state relative-caret-position="2760">
           <caret line="184" column="0" lean-forward="false" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
           <folding>
-            <element signature="e#11695#11696#0" expanded="false" />
-            <element signature="e#11745#11746#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1212,7 +1203,7 @@
           <caret line="63" column="95" lean-forward="false" selection-start-line="63" selection-start-column="82" selection-end-line="63" selection-end-column="95" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1494101182000" expanded="true" signature="17001:17644" ph="{...}" />
+            <marker date="1494105844000" expanded="true" signature="17001:17644" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1289,7 +1280,7 @@
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1494101182000" expanded="true" signature="17001:17644" ph="{...}" />
+            <marker date="1494105844000" expanded="true" signature="17001:17644" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1478,17 +1469,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2220">
-          <caret line="148" column="84" lean-forward="false" selection-start-line="148" selection-start-column="79" selection-end-line="148" selection-end-column="84" />
-          <folding>
-            <element signature="e#11695#11696#0" expanded="false" />
-            <element signature="e#11745#11746#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/dev_set/queries.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6615">
@@ -1504,16 +1484,6 @@
           <folding>
             <element signature="e#0#53227#0" expanded="false" />
             <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="22" lean-forward="false" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
-          <folding>
-            <marker date="1494099783000" expanded="true" signature="875:879" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1534,13 +1504,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="236" column="0" lean-forward="true" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+        <state relative-caret-position="15">
+          <caret line="157" column="84" lean-forward="false" selection-start-line="157" selection-start-column="84" selection-end-line="157" selection-end-column="84" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1494101182000" expanded="true" signature="17001:17644" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="208" column="46" lean-forward="false" selection-start-line="208" selection-start-column="46" selection-end-line="208" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1494105844000" expanded="true" signature="17001:17644" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <marker date="1494105881000" expanded="true" signature="683:686" ph="{...}" />
           </folding>
         </state>
       </provider>

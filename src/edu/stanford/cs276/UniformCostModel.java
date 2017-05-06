@@ -15,21 +15,12 @@ public class UniformCostModel implements EditCostModel {
 	
   @Override
   public double editProbability(String original, String R, int distance) {
-//      return distance > 0 ? distance * Math.log(0.01) : Math.log(0.95);
-//      if (distance==0){
-//          return 0.98;
-//      }
-//      if (distance<=1)
-//          return 0.1;
-//      else
-//          return 0.1/(Math.pow(distance,2));
-
-
-
-      if (distance == 0) {
-          return MATCH_PROB;
+      if (R.equals(original)){
+          return 0.98;
       }
-      return Math.pow(EDIT_PROB, distance);
-
+      if (distance<=1)
+          return 0.1;
+      else
+          return 0.1/(Math.pow(distance,2));
   }
 }
