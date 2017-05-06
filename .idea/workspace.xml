@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1980ffe-e5fa-42d0-98ac-05f59549fa4d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/noisyChannel" afterPath="$PROJECT_DIR$/noisyChannel" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/Config.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/Config.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/EmpiricalCostModel.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/EmpiricalCostModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java" afterPath="$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,8 +31,8 @@
       <file leaf-file-name="CandidateGenerator2.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1728">
-              <caret line="276" column="0" lean-forward="true" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
+            <state relative-caret-position="15">
+              <caret line="405" column="2" lean-forward="true" selection-start-line="405" selection-start-column="2" selection-end-line="405" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -59,12 +54,22 @@
       <file leaf-file-name="RunCorrector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
+            <state relative-caret-position="-662">
               <caret line="208" column="46" lean-forward="false" selection-start-line="208" selection-start-column="46" selection-end-line="208" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <marker date="1494105844000" expanded="true" signature="17001:17644" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestEdit.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -79,38 +84,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CandidateResult.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CandidateResult.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
+            <state relative-caret-position="391">
               <caret line="52" column="5" lean-forward="false" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
               <folding>
-                <element signature="e#330#331#0" expanded="false" />
-                <element signature="e#362#363#0" expanded="false" />
-                <element signature="e#412#413#0" expanded="false" />
-                <element signature="e#454#455#0" expanded="false" />
-                <element signature="e#486#487#0" expanded="false" />
-                <element signature="e#517#518#0" expanded="false" />
-                <element signature="e#562#563#0" expanded="false" />
-                <element signature="e#602#603#0" expanded="false" />
+                <element signature="e#1150#1151#0" expanded="true" />
+                <element signature="e#1217#1218#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CandidateGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java">
+      <file leaf-file-name="NoisyChannelModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/NoisyChannelModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="157" column="84" lean-forward="false" selection-start-line="157" selection-start-column="84" selection-end-line="157" selection-end-column="84" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="280">
+              <caret line="90" column="14" lean-forward="false" selection-start-line="90" selection-start-column="14" selection-end-line="90" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UniformCostModel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UniformCostModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
@@ -186,9 +183,9 @@
         <option value="$PROJECT_DIR$/src/edu/stanford/cs276/LanguageModel.java" />
         <option value="$PROJECT_DIR$/src1/edu/stanford/cs276/CandidateGenerator.java" />
         <option value="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateResult.java" />
-        <option value="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator2.java" />
         <option value="$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java" />
         <option value="$PROJECT_DIR$/src/edu/stanford/cs276/UniformCostModel.java" />
+        <option value="$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator2.java" />
       </list>
     </option>
   </component>
@@ -983,12 +980,12 @@
       <workItem from="1493568337027" duration="21580000" />
       <workItem from="1494089159833" duration="1242000" />
       <workItem from="1494090612202" duration="10329000" />
-      <workItem from="1494101014453" duration="3309000" />
+      <workItem from="1494101014453" duration="3547000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73778000" />
+    <option name="totallyTimeSpent" value="74016000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1082,18 +1079,6 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java</url>
-          <line>252</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java</url>
-          <line>244</line>
-          <properties />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java</url>
           <line>307</line>
           <properties />
@@ -1140,9 +1125,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2760">
           <caret line="184" column="0" lean-forward="false" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1347,14 +1330,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/NoisyChannelModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="90" column="14" lean-forward="false" selection-start-line="90" selection-start-column="14" selection-end-line="90" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/training_set/edit1s.txt">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="0">
@@ -1421,14 +1396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="44" column="37" lean-forward="false" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src1/edu/stanford/cs276/UniformCostModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1449,23 +1416,6 @@
         <state relative-caret-position="-597">
           <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="77" selection-end-column="33" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="52" column="5" lean-forward="false" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
-          <folding>
-            <element signature="e#330#331#0" expanded="false" />
-            <element signature="e#362#363#0" expanded="false" />
-            <element signature="e#412#413#0" expanded="false" />
-            <element signature="e#454#455#0" expanded="false" />
-            <element signature="e#486#487#0" expanded="false" />
-            <element signature="e#517#518#0" expanded="false" />
-            <element signature="e#562#563#0" expanded="false" />
-            <element signature="e#602#603#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1496,32 +1446,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator2.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/NoisyChannelModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1728">
-          <caret line="276" column="0" lean-forward="true" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
+        <state relative-caret-position="280">
+          <caret line="90" column="14" lean-forward="false" selection-start-line="90" selection-start-column="14" selection-end-line="90" selection-end-column="14" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="157" column="84" lean-forward="false" selection-start-line="157" selection-start-column="84" selection-end-line="157" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/RunCorrector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
+        <state relative-caret-position="-662">
           <caret line="208" column="46" lean-forward="false" selection-start-line="208" selection-start-column="46" selection-end-line="208" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
             <marker date="1494105844000" expanded="true" signature="17001:17644" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/TestEdit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1531,6 +1479,33 @@
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <marker date="1494105881000" expanded="true" signature="683:686" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="405" column="2" lean-forward="true" selection-start-line="405" selection-start-column="2" selection-end-line="405" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2323">
+          <caret line="56" column="6" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/stanford/cs276/CandidateResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="52" column="5" lean-forward="false" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+          <folding>
+            <element signature="e#1150#1151#0" expanded="true" />
+            <element signature="e#1217#1218#0" expanded="true" />
           </folding>
         </state>
       </provider>

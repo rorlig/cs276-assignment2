@@ -3,10 +3,10 @@ package edu.stanford.cs276;
 import java.io.Serializable;
 import java.util.*;
 
-public class CandidateGenerator2 implements Serializable {
+public class CandidateGenerator implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static CandidateGenerator2 cg_;
+	private static CandidateGenerator cg_;
     private LanguageModel languageModel ;
     private NoisyChannelModel nsm;
 
@@ -24,11 +24,11 @@ public class CandidateGenerator2 implements Serializable {
   * You can get a handle to a CandidateGenerator object using the static
   * 'get' method below.
   */
-  private CandidateGenerator2() {}
+  private CandidateGenerator() {}
 
-  public static CandidateGenerator2 get() throws Exception {
+  public static CandidateGenerator get() throws Exception {
     if (cg_ == null) {
-      cg_ = new CandidateGenerator2();
+      cg_ = new CandidateGenerator();
     }
     return cg_;
   }
@@ -430,9 +430,9 @@ public class CandidateGenerator2 implements Serializable {
         this.languageModel = languageModel;
     }
 
-    public static CandidateGenerator2 get(LanguageModel languageModel, NoisyChannelModel nsm) {
+    public static CandidateGenerator get(LanguageModel languageModel, NoisyChannelModel nsm) {
         if (cg_ == null) {
-            cg_ = new CandidateGenerator2();
+            cg_ = new CandidateGenerator();
         }
         return cg_;
 

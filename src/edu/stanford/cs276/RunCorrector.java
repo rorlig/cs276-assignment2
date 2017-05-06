@@ -217,7 +217,7 @@ public class RunCorrector {
      * the most likely correction
      */
 
-        CandidateGenerator2 cg=CandidateGenerator2.get(RunCorrector.languageModel, RunCorrector.nsm);
+        CandidateGenerator cg= CandidateGenerator.get(RunCorrector.languageModel, RunCorrector.nsm);
         cg.setLanguageModel(languageModel);
 
 
