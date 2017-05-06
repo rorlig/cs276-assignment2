@@ -36,4 +36,19 @@ public class CandidateResult {
                 ", distance=" + distance +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CandidateResult)) return false;
+
+        CandidateResult that = (CandidateResult) o;
+
+        return candidate != null ? candidate.equals(that.candidate) : that.candidate == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return candidate != null ? candidate.hashCode() : 0;
+    }
 }

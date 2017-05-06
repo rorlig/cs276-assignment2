@@ -1,16 +1,13 @@
 package edu.stanford.cs276;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class CandidateGenerator implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static CandidateGenerator cg_;
     private LanguageModel languageModel ;
-    private double threshold = 0.0000001;
     private NoisyChannelModel nsm;
 
     /**
@@ -37,7 +34,6 @@ public class CandidateGenerator implements Serializable {
       '8', '9', ' ', ',' };
 
 
-
   // delete
   public Set<String> getDeleteCandidates(String query) {
     Set<String> candidates = new HashSet<>();
@@ -57,6 +53,21 @@ public class CandidateGenerator implements Serializable {
         for (Character anAlphabet : alphabet) {
             for (int i = 0; i <= query.length(); ++i) {
                 String cand = query.substring(0, i) + anAlphabet + query.substring(i);
+                if (anAlphabet==' '){
+                    boolean valid=true;
+                    String tokens[] = cand.split("\\s+");
+                    for (String token: tokens){
+                        if (languageModel.unigram.count(token)==0)
+                            valid=false;
+
+                    }
+                    if (valid) {
+                        for (String token: tokens) {
+                            candidates.add(token);
+
+                        }
+                    }
+                }
                 if (languageModel.unigram.count(cand) != 0)
                     candidates.add(cand);
             }
@@ -110,7 +121,7 @@ public class CandidateGenerator implements Serializable {
         for (int i = 0 ; i < query.length(); ++i ) {
             String cand = query.substring(0,i) + query.substring(i+1);
             if (languageModel.unigram.count(cand) != 0) {
-                CandidateResult candidateResult = new CandidateResult(cand, distance );
+                CandidateResult candidateResult = new CandidateResult(cand.trim().replace("  ", " "), distance );
                 candidates.add(candidateResult);
             }
 
@@ -124,8 +135,18 @@ public class CandidateGenerator implements Serializable {
         for (Character anAlphabet : alphabet) {
             for (int i = 0; i <= query.length(); ++i) {
                 String cand = query.substring(0, i) + anAlphabet + query.substring(i);
+                if (anAlphabet==' ') {
+                    boolean valid = true;
+                    for (String str : cand.split("\\s+")) {
+                        if (languageModel.unigram.count(str) == 0)
+                            valid = false;
+
+                    }
+                    if (valid)
+                        candidates.add(new CandidateResult(cand, distance ));
+                }
                 if (languageModel.unigram.count(cand) != 0) {
-                    CandidateResult candidateResult = new CandidateResult(cand, distance );
+                    CandidateResult candidateResult = new CandidateResult(cand.trim().replace("  ", " "), distance );
                     candidates.add(candidateResult);
                 }
             }
@@ -145,7 +166,7 @@ public class CandidateGenerator implements Serializable {
                 String cand = new String(newWord);
 
                 if (languageModel.unigram.count(cand) != 0){
-                    CandidateResult candidateResult = new CandidateResult(cand, distance );
+                    CandidateResult candidateResult = new CandidateResult(cand.trim().replace("  ", " "), distance );
                     candidates.add(candidateResult);
                 }
             }
@@ -168,7 +189,7 @@ public class CandidateGenerator implements Serializable {
             String cand = new String(newWord);
 
             if (languageModel.unigram.count(cand) != 0){
-                CandidateResult candidateResult = new CandidateResult(cand, distance );
+                CandidateResult candidateResult = new CandidateResult(cand.trim().replace("  ", " "), distance );
                 candidates.add(candidateResult);
             }
         }
@@ -196,13 +217,14 @@ public class CandidateGenerator implements Serializable {
       candidates.addAll(getTransposeCandidates(query));
 
       candidates = filter(candidates);
-
+/*
       // Edit distance 2
       Set<String> candidateD2 = getCandidates(candidates);
       candidateD2.addAll(candidates);
       candidateD2 = filter(candidateD2);
       return candidateD2;
-
+*/
+      return candidates;
   }
   // Generate all candidates for the target query
   public Set<CandidateResult> getCandidates(String query) throws Exception {
@@ -210,6 +232,7 @@ public class CandidateGenerator implements Serializable {
       String[] tokens = query.trim().split("\\s+");
       ArrayList<Set<String>> resultList = new ArrayList<>();
       ArrayList<Set<CandidateResult>> candidateResult = new ArrayList<>();
+
 
       /// need to take out all tokens from the query ...
       /// how many errors allowed per query before pruning.
@@ -232,7 +255,7 @@ public class CandidateGenerator implements Serializable {
           }
 
       }
-      Set<String> finalCandidateSet = permute(resultList);
+      //Set<String> finalCandidateSet = permute(resultList);
       Set<CandidateResult> finalCandidateResultSet = permute1(candidateResult);
 
     return finalCandidateResultSet;
@@ -277,42 +300,8 @@ public class CandidateGenerator implements Serializable {
         return candidateD2;
     }
 
-    // takes the array list of set of words
-    // e.g. [<hello, hell>, <world,word>]  spits out [<hello world>, <hello word>, <hell world> , <hell word>
-    public Set<String> permute(ArrayList<Set<String>> resultList) {
-        Set<String> resultSet = new HashSet<>();
 
-        if (resultList.size()==0) return resultSet;
-        resultSet = resultList.get(0);
 
-        for (int i = 1 ; i < resultList.size() ; ++i) {
-            // okay look at this now.
-            Set<String> wordList = resultList.get(i);
-            Set<String> copyList  = new HashSet<>(resultSet);
-            resultSet.clear();
-
-            for (String word: wordList) {
-                //append this to all the resultSet items
-                for (String result: copyList) {
-                    resultSet.add(result + " " + word);
-
-                }
-            }
-        }
-        return resultSet;
-    }
-
-    private Set<String> getCandidates(Set<String> candidates) {
-        Set<String> candidatesD2 = new HashSet<>();
-
-        for (String candidate : candidates) {
-            candidatesD2.addAll(getDeleteCandidates(candidate));
-            candidatesD2.addAll(getInsertCandidates(candidate));
-            candidatesD2.addAll(getReplaceCandidate(candidate));
-            candidatesD2.addAll(getTransposeCandidates(candidate));
-        }
-        return candidatesD2;
-    }
 
     private Set<CandidateResult> getCandidates(Set<CandidateResult> candidates, int distance) {
         Set<CandidateResult> candidatesD2 = new HashSet<>();
@@ -331,8 +320,6 @@ public class CandidateGenerator implements Serializable {
     }
 
     public static CandidateGenerator get(LanguageModel languageModel, NoisyChannelModel nsm) {
-//        this.languageModel = languageModel;
-//        this.nsm = nsm;
         if (cg_ == null) {
             cg_ = new CandidateGenerator();
         }

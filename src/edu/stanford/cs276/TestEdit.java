@@ -18,16 +18,24 @@ public class TestEdit {
 
     public static void main(String args[]) {
         try {
-            CandidateGenerator cg = CandidateGenerator.get();
+//            CandidateGenerator cg = CandidateGenerator.get();
             languageModel = LanguageModel.load();
             nsm = NoisyChannelModel.load();
 //            BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File("data/queries.txt")));
             nsm.setProbabilityType("uniform");
-            cg.setLanguageModel(languageModel);
-            Set<CandidateResult> candidateSet = cg.getCandidates("hp support website api doxygen documantation p04 06q");
-            System.out.println("assert size "  + candidateSet.size());
-            for (CandidateResult candidate : candidateSet){
-                System.out.println(candidate);
+//            cg.setLanguageModel(languageModel);
+//            Set<CandidateResult> candidateSet = cg.getCandidates("hp support website api doxygen documantation p04 06q");
+//            System.out.println("assert size "  + candidateSet.size());
+//            for (CandidateResult candidate : candidateSet){
+//                System.out.println(candidate);
+//            }
+
+            String cand = "de eloped the notion of a";
+            String tokens[] = cand.split(" ");
+            for (String tok: tokens) {
+               System.out.println("tok " + tok + " count " + languageModel.unigram.count(tok));
+//                System.out.println("tok "  + tok);
+
             }
 //
 //

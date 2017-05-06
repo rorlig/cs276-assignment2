@@ -3,6 +3,8 @@ package edu.stanford.cs276;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -159,6 +161,7 @@ public class RunCorrector {
 
     public static void main(String[] args) throws Exception {
 
+
         // Parse input arguments
         String uniformOrEmpirical = null;
         String queryFilePath = null;
@@ -207,18 +210,25 @@ public class RunCorrector {
 
         String query = null;
 
+        System.out.println("loaded the model");
+
     /*
      * Each line in the file represents one query. We loop over each query and find
      * the most likely correction
      */
 
-        CandidateGenerator cg=CandidateGenerator.get(RunCorrector.languageModel, RunCorrector.nsm);
+        CandidateGenerator2 cg=CandidateGenerator2.get(RunCorrector.languageModel, RunCorrector.nsm);
         cg.setLanguageModel(languageModel);
 
-        for (int i=1;i<=10;i++) {
-            lambda = i*0.01;
-            for (int j=1;j<=10;j++) {
-                mu=j*0.001;
+
+        for (int i=1;i<10;i++) {
+            lambda = i*0.05;
+//            lambda=0.05;
+            for (int j=2;j<5; j++) {
+                mu=1.0/j;
+//                mu=0.25;
+
+                long startTime = System.currentTimeMillis();
 
                 BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
                 if (goldFilePath != null) {
@@ -228,21 +238,43 @@ public class RunCorrector {
                 String result;
                 double prob;
                 int correct = 0;
+                int total = 0;
 
                 while ((query = queriesFileReader.readLine()) != null) {
+//                    query = "vcimage generate on";
+//                    query=query.trim();
                     result = "";
-                    prob = -100000000D;
-                    Set<CandidateResult> candidateSet = cg.getCandidates(query);
 
-                    for (CandidateResult candidate : candidateSet) {
-                        double p = calculateProbability(query, candidate.getCandidate(), candidate.getDistance());
+                    prob = -100000000D;
+//                    System.out.println("query term " + query);
+
+                    Map<String, Integer> candidateSet = cg.getCandidates(query);
+
+                    System.out.println("candidate generation  "
+                            +  ((System.currentTimeMillis()-startTime)/1000) + "seconds" + "size " + candidateSet.size());
+
+
+                    for (String candidate : candidateSet.keySet()) {
+                        double p = calculateProbability(query, candidate, candidateSet.get(candidate));
+//                        System.out.println("candidate " + candidate
+//                                            + " probability " + p + " distance " + candidateSet.get(candidate));
+
                         if (p > prob) {
                             prob = p;
-                            result = candidate.getCandidate();
+                            result = candidate;
                         }
                     }
-                    if (result.length() == 0)
-                        result = query;
+
+                    /*
+                    HashMap<String, Integer> candQueries=cg.getCandidates(query);
+                    for(String qry:candQueries.keySet()){
+                        double p = calculateProbability(query,qry,candQueries.get(qry));
+                        if (p>prob){
+                            prob=p;
+                            result=qry;
+                        }
+                    }
+                    */
 
                     if ("extra".equals(extra)) {
         /*
@@ -258,33 +290,48 @@ public class RunCorrector {
                     // and output the running accuracy
                     if (goldFileReader != null) {
                         String goldQuery = goldFileReader.readLine();
-                        //System.out.println("goldQuery " + goldQuery + " result " + result);
-                        if (goldQuery.equalsIgnoreCase(result))
+                        total++;
+                        if (goldQuery.trim().equals(result)) {
                             correct++;
+//                            System.out.println("************"+result + " correct " + correct + " total " + total);
+                        } else {
+//                            System.out.println(query + ":" + result
+//                                    + ":" + goldQuery);
+
+
+                        }
+                        //else
+                          //  System.out.println(query+"-"+result+":"+goldQuery+":"+getDistance(goldQuery,query));
         /*
          * You can do any bookkeeping you wish here - track accuracy, track where your solution
          * diverges from the gold file, what type of errors are more common etc. This might
          * help you improve your candidate generation/scoring steps
          */
                     }
-
-                    //System.out.println(result);
+                    /*String freq="";
+                    for (String str:result.split("\\s+"))
+                        freq=freq+languageModel.unigram.getMap().get(str)+",";
+                    System.out.println(result+"---"+freq);*/
                 }
-                System.out.println(lambda +","+mu+"," + correct);
+                System.out.println("result " + lambda +","+mu+"," + correct);
+
+                System.out.println("total time " +  ((System.currentTimeMillis()-startTime)/1000) + "seconds");
+
+//                System.out.println(correct);
                 queriesFileReader.close();
             }
         }
     }
 
-    private static double calculateProbability(String origQuery, String corrQuery, int dist){
-        double prob=0D;
-        //get the edit probability (conditional probability of P(R/Q) where R is orig
-        //int distance = getDistance(origQuery, corrQuery);
-        prob=Math.log(nsm.ecm_.editProbability(origQuery,corrQuery,dist));
-        //calculate the probability of P(Q) using the lang model
-        prob+=langModelProb(corrQuery);
-        return prob;
-    }
+    //    private static double calculateProbability(String origQuery, String corrQuery, int dist){
+    //        double prob=0D;
+    //        //get the edit probability (conditional probability of P(R/Q) where R is orig
+    //        //int distance = getDistance(origQuery, corrQuery);
+    //        prob=Math.log(nsm.ecm_.editProbability(origQuery,corrQuery,dist));
+    //        //calculate the probability of P(Q) using the lang model
+    //        prob+=langModelProb(corrQuery);
+    //        return prob;
+    //    }
 
     private static double langModelProb(String corrQuery){
         String[] tokens=corrQuery.split("\\s+");
@@ -296,8 +343,8 @@ public class RunCorrector {
             else{
                 double temp=0D;
                 temp+=(lambda * (double)languageModel.unigram.count(tokens[i])/languageModel.unigram.termCount());
-                temp+=((1-lambda)*(double) languageModel.bigram.count(tokens[i-1]+"\t"+tokens[i]) * languageModel.unigram.termCount()/
-                        (languageModel.bigram.termCount()*languageModel.unigram.count(tokens[i-1])));
+                temp+=((1-lambda)*(double) languageModel.bigram.count(tokens[i-1]+"|"+tokens[i])/
+                        (languageModel.unigram.count(tokens[i-1])));
                 prob+=mu*Math.log(temp);
             }
 
@@ -305,6 +352,75 @@ public class RunCorrector {
         return prob;
     }
 
+    private static double langModelProbLaplaceSmoothing(String corrQuery){
+        String[] tokens=corrQuery.split("\\s+");
+        double prob=0;
+        for(int i=0;i<tokens.length;i++){
+            if (i==0){
+                prob+=Math.log(((double)languageModel.unigram.count(tokens[i])+1) /
+                        (languageModel.unigram.termCount()+languageModel.unigram.getMap().size()));
+            } else {
+                prob+=Math.log(((double)languageModel.bigram.count(tokens[i-1]+"|"+tokens[i])+1) *  languageModel.unigram.count(tokens[i-1]) /
+                        (languageModel.unigram.count(tokens[i-1])+languageModel.unigram.getMap().size()));
+            }
+        }
+        return prob*mu;
+    }
+
+    private static double calculateProbability(String origQuery, String corrQuery, int dist){
+        double prob=0D;
+        //get the edit probability (conditional probability of P(R/Q) where R is orig
+        //int distance = getDistance(origQuery, corrQuery);
+        prob=Math.log(nsm.ecm_.editProbability(origQuery,corrQuery,dist));
+
+//        System.out.println("prob from the the nsm " + prob);
+        //calculate langModelProbLaplaceSmoothing probability of P(Q) using the lang model
+        prob+=langModelProb(corrQuery);
+
+//        System.out.println("after lang model" + prob);
+
+
+        return prob;
+    }
+
+
+//    private static double langModelProb(String corrQuery){
+//        String[] tokens=corrQuery.split("\\s+");
+////        double prob=0;
+//        double prob = unigramProbability(tokens[0]); // P(w2)
+////        double bigramProbability =  (double) _bigramCounts.count(w1 + " " + w2) / _unigramCounts.count(w1); 			   // P(w2|w1)
+//
+////        return Math.log(LAMBDA * unigramProbability + (1 - LAMBDA) * bigramProbability);
+//
+//        for(int i=0;i<tokens.length -1;i++){
+//                prob += bigramProbability(tokens[i], tokens[i+1], lambda);
+//
+////                temp+=(lambda * (double)languageModel.unigram.count(tokens[i])/languageModel.unigram.termCount());
+////                temp+=((1-lambda)*(double) languageModel.bigram.count(tokens[i-1]+"|"+tokens[i])/
+////                        (languageModel.unigram.count(tokens[i-1])));
+////                prob+=mu*Math.log(temp);
+//
+//
+//        }
+//        return prob;
+//    }
+
+    private static double bigramProbability(String w1, String w2, double lambda) {
+        double unigramProbability = unigramProbability(w1); // P(w2)
+        double bigramProbability =  (double) languageModel.bigram.count(w1 + " " + w2)
+                                            / languageModel.unigram.count(w1); 			   // P(w2|w1)
+
+        return Math.log(lambda * unigramProbability + (1 - lambda) * bigramProbability);
+    }
+
+    private static double unigramProbability(String w) {
+        return (double) languageModel.unigram.count(w) / languageModel.unigram.termCount();
+
+    }
+
+//    private static double bigramProbablity(String w1, String w2) {
+//
+//    }
     //Damerau-Levenshtein edit distance at a token level
     private static int getDistance(String t1, String t2){
         int[][] matrix = new int[t1.length()+1][t2.length()+1];
@@ -312,7 +428,7 @@ public class RunCorrector {
             matrix[i][0]=i;
 
         for (int j=1;j<=t2.length();j++)
-            matrix[j][0]=j;
+            matrix[0][j]=j;
 
         for (int i=0;i<t1.length();i++) {
             for (int j = 0; j < t2.length(); j++) {

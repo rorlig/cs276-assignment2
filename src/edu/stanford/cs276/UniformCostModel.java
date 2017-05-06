@@ -8,18 +8,28 @@ package edu.stanford.cs276;
 public class UniformCostModel implements EditCostModel {
 	
 	private static final long serialVersionUID = 1L;
+
+
+    private static final double EDIT_PROB = 0.05;
+    private static final double MATCH_PROB = 0.95;
 	
   @Override
   public double editProbability(String original, String R, int distance) {
-      //return 1.0/(1+Math.pow(distance,3));
+//      return distance > 0 ? distance * Math.log(0.01) : Math.log(0.95);
+//      if (distance==0){
+//          return 0.98;
+//      }
+//      if (distance<=1)
+//          return 0.1;
+//      else
+//          return 0.1/(Math.pow(distance,2));
+
+
 
       if (distance == 0) {
-          return 0.99;
-      } else  if (distance==1){
-          return 0.9;
-      } else
-          return 0.99/(Math.pow(distance,2));
+          return MATCH_PROB;
+      }
+      return Math.pow(EDIT_PROB, distance);
 
-    // TODO: Your code here
   }
 }
