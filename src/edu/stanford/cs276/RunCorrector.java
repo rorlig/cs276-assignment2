@@ -6,149 +6,6 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Set;
 
-
-//public class RunCorrector {
-//
-//  public static LanguageModel languageModel;
-//  public static NoisyChannelModel nsm;
-//
-//  public static void main(String[] args) throws Exception {
-//
-//    // Parse input arguments
-//    String uniformOrEmpirical = null;
-//    String queryFilePath = null;
-//    String goldFilePath = null;
-//    String extra = null;
-//    BufferedReader goldFileReader = null;
-//
-//    if (args.length == 2) {
-//      // Default: run without extra credit code or gold data comparison
-//      uniformOrEmpirical = args[0];
-//      queryFilePath = args[1];
-//    }
-//    else if (args.length == 3) {
-//      uniformOrEmpirical = args[0];
-//      queryFilePath = args[1];
-//      if (args[2].equals("extra")) {
-//        extra = args[2];
-//      } else {
-//        goldFilePath = args[2];
-//      }
-//    }
-//    else if (args.length == 4) {
-//      uniformOrEmpirical = args[0];
-//      queryFilePath = args[1];
-//      extra = args[2];
-//      goldFilePath = args[3];
-//    }
-//    else {
-//      System.err.println(
-//          "Invalid arguments.  Argument count must be 2, 3 or 4 \n"
-//          + "./runcorrector <uniform | empirical> <query file> \n"
-//          + "./runcorrector <uniform | empirical> <query file> <gold file> \n"
-//          + "./runcorrector <uniform | empirical> <query file> <extra> \n"
-//          + "./runcorrector <uniform | empirical> <query file> <extra> <gold file> \n"
-//          + "SAMPLE: ./runcorrector empirical data/queries.txt \n"
-//          + "SAMPLE: ./runcorrector empirical data/queries.txt data/gold.txt \n"
-//          + "SAMPLE: ./runcorrector empirical data/queries.txt extra \n"
-//          + "SAMPLE: ./runcorrector empirical data/queries.txt extra data/gold.txt \n");
-//      return;
-//    }
-//
-//    if (goldFilePath != null) {
-//      goldFileReader = new BufferedReader(new FileReader(new File(goldFilePath)));
-//    }
-//
-//    // Load models from disk
-//    languageModel = LanguageModel.load();
-//    nsm = NoisyChannelModel.load();
-//    BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
-//    nsm.setProbabilityType(uniformOrEmpirical);
-//
-//
-//    CandidateGenerator candidateGenerator = CandidateGenerator.get();
-//
-//    candidateGenerator.setLanguageModel(languageModel);
-//
-//
-//    String query = null;
-//
-//    /*
-//     * Each line in the file represents one query. We loop over each query and find
-//     * the most likely correction
-//     */
-//    while ((query = queriesFileReader.readLine()) != null) {
-//
-//      String correctedQuery = query;
-//
-//      Set<CandidateResult> candidateSet  = candidateGenerator.getCandidates(query);
-//
-//      System.out.println("candidateSet size " + candidateSet.size());
-//      System.out.println("query: "  + query);
-//      for (CandidateResult candidate: candidateSet) {
-//        System.out.println("candidate: " + candidate);
-//      }
-//
-//        if (candidateSet.size()!=0) {
-////            getScores(candidateSet, query);
-//        }
-////      System.out.println(candidateSet);
-//      /*
-//       * Your code here: currently the correctQuery and original query are the same
-//       * Complete this implementation so that the spell corrector corrects the
-//       * (possibly) misspelled query
-//       *
-//       */
-//
-//      if ("extra".equals(extra)) {
-//        /*
-//         * If you are going to implement something regarding to running the corrector,
-//         * you can add code here. Feel free to move this code block to wherever
-//         * you think is appropriate. But make sure if you add "extra" parameter,
-//         * it will run code for your extra credit and it will run you basic
-//         * implementations without the "extra" parameter.
-//         */
-//      }
-//
-//      // If a gold file was provided, compare our correction to the gold correction
-//      // and output the running accuracy
-//      if (goldFileReader != null) {
-//        String goldQuery = goldFileReader.readLine();
-//        /*
-//         * You can do any bookkeeping you wish here - track accuracy, track where your solution
-//         * diverges from the gold file, what type of errors are more common etc. This might
-//         * help you improve your candidate generation/scoring steps
-//         */
-//      }
-//
-//      /*
-//       * Output the corrected query.
-//       * IMPORTANT: In your final submission DO NOT add any additional print statements as
-//       * this will interfere with the autograder
-//       */
-//      System.out.println(correctedQuery);
-//    }
-//    queriesFileReader.close();
-//  }
-//
-//    private static void getScores(Set<String> candidateSet, String query) {
-//
-//    }
-//
-////    private static ArrayList<Score> populateScores(ArrayList<StringBuilder> ar,
-////                                                   String query,
-////                                                   ArrayList<Set<String>> distanceList){
-////        ArrayList<Score> scoredList = new ArrayList<Score>(ar.size());
-////        for(int i = 0; i < ar.size(); i++){
-////            String str = ar.get(i).toString();
-////            scoredList.add(new Score(query,str,ms,nsm.ecm_,distanceList));
-////        }
-////        return scoredList;
-////    }
-//
-//}
-
-
 public class RunCorrector {
 
     public static LanguageModel languageModel;
@@ -172,8 +29,7 @@ public class RunCorrector {
             // Default: run without extra credit code or gold data comparison
             uniformOrEmpirical = args[0];
             queryFilePath = args[1];
-        }
-        else if (args.length == 3) {
+        } else if (args.length == 3) {
             uniformOrEmpirical = args[0];
             queryFilePath = args[1];
             if (args[2].equals("extra")) {
@@ -181,14 +37,12 @@ public class RunCorrector {
             } else {
                 goldFilePath = args[2];
             }
-        }
-        else if (args.length == 4) {
+        } else if (args.length == 4) {
             uniformOrEmpirical = args[0];
             queryFilePath = args[1];
             extra = args[2];
             goldFilePath = args[3];
-        }
-        else {
+        } else {
             System.err.println(
                     "Invalid arguments.  Argument count must be 2, 3 or 4 \n"
                             + "./runcorrector <uniform | empirical> <query file> \n"
@@ -214,15 +68,15 @@ public class RunCorrector {
      * the most likely correction
      */
 
-        CandidateGenerator cg=CandidateGenerator.get(RunCorrector.languageModel, RunCorrector.nsm);
+        CandidateGenerator cg = CandidateGenerator.get();
         cg.setLanguageModel(languageModel);
 
-        for (int i=1;i<2;i++) {
-            //lambda = i*0.05;
-            lambda=0.05;
-            for (int j=1;j<2;j++) {
+        for (int i = 1; i < 2; i++) {
+            //lambda = i*0.005;
+            lambda = 0.1;
+            for (int j = 1; j < 2; j++) {
                 //mu=1.0/j;
-                mu=0.25;
+                mu = 0.5;
 
                 BufferedReader queriesFileReader = new BufferedReader(new FileReader(new File(queryFilePath)));
                 if (goldFilePath != null) {
@@ -232,14 +86,13 @@ public class RunCorrector {
                 String result;
                 double prob;
                 int correct = 0;
-
                 while ((query = queriesFileReader.readLine()) != null) {
-                    query=query.trim();
+                    query = query.trim();
                     result = "";
 
                     prob = -100000000D;
-
                     Set<CandidateResult> candidateSet = cg.getCandidates(query);
+                    //candidateSet.addAll(cg.processSpace(query));
                     for (CandidateResult candidate : candidateSet) {
                         double p = calculateProbability(query, candidate.getCandidate(), candidate.getDistance());
                         if (p > prob) {
@@ -248,25 +101,10 @@ public class RunCorrector {
                         }
                     }
 
-                    /*
-                    HashMap<String, Integer> candQueries=cg.getCandidates(query);
-                    for(String qry:candQueries.keySet()){
-                        double p = calculateProbability(query,qry,candQueries.get(qry));
-                        if (p>prob){
-                            prob=p;
-                            result=qry;
-                        }
-                    }
-                    */
 
                     if ("extra".equals(extra)) {
-        /*
-         * If you are going to implement something regarding to running the corrector,
-         * you can add code here. Feel free to move this code block to wherever
-         * you think is appropriate. But make sure if you add "extra" parameter,
-         * it will run code for your extra credit and it will run you basic
-         * implementations without the "extra" parameter.
-         */
+                        //TODO add extra code
+
                     }
 
                     // If a gold file was provided, compare our correction to the gold correction
@@ -275,25 +113,20 @@ public class RunCorrector {
                         String goldQuery = goldFileReader.readLine();
                         if (goldQuery.equals(result)) {
                             correct++;
-                            System.out.println("************"+result);
-                        } else {
-                            System.out.println("xxxxxxxxxxxxx"+result+"---"+goldQuery+"xxxxxxxxx"+getDistance(result,goldQuery));
                         }
-                        //else
-                          //  System.out.println(query+"-"+result+":"+goldQuery+":"+getDistance(goldQuery,query));
-        /*
-         * You can do any bookkeeping you wish here - track accuracy, track where your solution
-         * diverges from the gold file, what type of errors are more common etc. This might
-         * help you improve your candidate generation/scoring steps
-         */
+                        /*
+                        //System.out.println(result+":"+goldQuery);
+                        if (getDistance(query,goldQuery)==1){
+                            String str=(result.equals(goldQuery))?"*****"+result:query+":"+result+":"+goldQuery;
+                            System.out.println(str);
+                        }
+                        */
                     }
-                    /*String freq="";
-                    for (String str:result.split("\\s+"))
-                        freq=freq+languageModel.unigram.getMap().get(str)+",";
-                    System.out.println(result+"---"+freq);*/
+                    System.out.println(result);
+
                 }
-                //System.out.println(lambda +","+mu+"," + correct);
-                System.out.println(correct);
+                System.out.println(lambda + "," + mu + "," +correct);
+                //System.out.println(correct);
                 queriesFileReader.close();
             }
         }
@@ -326,6 +159,21 @@ public class RunCorrector {
 
         }
         return prob;
+    }
+
+    private static double langModelProbLaplaceSmoothing(String corrQuery){
+        String[] tokens=corrQuery.split("\\s+");
+        double prob=0;
+        for(int i=0;i<tokens.length;i++){
+            if (i==0){
+                prob+=Math.log(((double)languageModel.unigram.count(tokens[i])+1) /
+                        (languageModel.unigram.termCount()+languageModel.unigram.getMap().size()));
+            } else {
+                prob+=Math.log(((double)languageModel.bigram.count(tokens[i-1]+"|"+tokens[i])+1) *  languageModel.unigram.count(tokens[i-1]) /
+                        (languageModel.unigram.count(tokens[i-1])+languageModel.unigram.getMap().size()));
+            }
+        }
+        return prob*mu;
     }
 
     //Damerau-Levenshtein edit distance at a token level

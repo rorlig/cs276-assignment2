@@ -31,7 +31,7 @@ public class CandidateGenerator implements Serializable {
   public static final Character[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f',
       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
       'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7',
-      '8', '9', ' ', ',' };
+      '8', '9', ' ' };
 
 
   // delete
@@ -212,13 +212,6 @@ public class CandidateGenerator implements Serializable {
       candidates.addAll(getTransposeCandidates(query));
 
       candidates = filter(candidates);
-/*
-      // Edit distance 2
-      Set<String> candidateD2 = getCandidates(candidates);
-      candidateD2.addAll(candidates);
-      candidateD2 = filter(candidateD2);
-      return candidateD2;
-*/
       return candidates;
   }
   // Generate all candidates for the target query
@@ -246,7 +239,6 @@ public class CandidateGenerator implements Serializable {
               candidateResultSet.add(new CandidateResult(token,  0));
               resultList.add(candidateSet);
               candidateResult.add(candidateResultSet);
-
           }
 
       }
@@ -295,19 +287,6 @@ public class CandidateGenerator implements Serializable {
         return candidateD2;
     }
 
-
-    private Set<String> getCandidates(Set<String> candidates) {
-        Set<String> candidatesD2 = new HashSet<>();
-
-        for (String candidate : candidates) {
-            candidatesD2.addAll(getDeleteCandidates(candidate));
-            candidatesD2.addAll(getInsertCandidates(candidate));
-            candidatesD2.addAll(getReplaceCandidate(candidate));
-            candidatesD2.addAll(getTransposeCandidates(candidate));
-        }
-        return candidatesD2;
-    }
-
     private Set<CandidateResult> getCandidates(Set<CandidateResult> candidates, int distance) {
         Set<CandidateResult> candidatesD2 = new HashSet<>();
 
@@ -319,6 +298,107 @@ public class CandidateGenerator implements Serializable {
         }
         return candidatesD2;
     }
+
+    public Set<CandidateResult> genCandidates(String query){
+        Set<CandidateResult> candidates=new HashSet<CandidateResult>();
+        HashMap<String,Set<String>> dict=new HashMap<>();
+        String[] tokens=query.split("\\s+");
+
+        for(int i=0;i<tokens.length;i++){
+            if (languageModel.unigram.count(tokens[i])==0){
+                dict.put(tokens[i],getCandidatesForWord(tokens[i]));
+            }
+        }
+
+        if (dict.size()!=0){
+            Set<String> qCand=cProduct(query,dict);
+            for(String elem:qCand){
+                CandidateResult r=new CandidateResult(elem,1);
+                candidates.add(r);
+            }
+        } else {
+            CandidateResult cr=new CandidateResult(query,0);
+            candidates.add(cr);
+        }
+
+        return candidates;
+    }
+
+    private Set<String> cProduct(String query, HashMap<String, Set<String>> dict){
+
+        Set<String> result=new HashSet<String>();
+        String[] tokens=query.split("\\s+");
+        ArrayList<String[]> queries=new ArrayList();
+        for(String key:dict.keySet()){
+            for(String val:dict.get(key)){
+                for (int i=0;i<tokens.length;i++){
+                    if (tokens[i].equalsIgnoreCase(key)){
+                        tokens[i]=val;
+                        queries.add(tokens);
+                        break;
+                    }
+                }
+            }
+        }
+        for (String[] words:queries){
+            result.add(getString(words));
+        }
+
+        return result;
+    }
+
+    private String getString(String[] tokens){
+        String result="";
+        if (tokens.length==0) return result;
+        result=tokens[0];
+        for(int i=1;i<tokens.length;i++)
+            result=result+" "+tokens[i];
+        return result;
+    }
+
+    public Set<CandidateResult> processSpace(String query){
+        Set<CandidateResult> result=new HashSet<>();
+        //delete space
+        int index=query.indexOf(' ');
+        String str=null;
+        StringBuilder sb=new StringBuilder(query);
+        while(index!=-1){
+            sb.deleteCharAt(index);
+            boolean valid=true;
+            for(String s:sb.toString().split("\\s+")){
+                if (languageModel.unigram.count(s)==0) {
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid){
+                CandidateResult cr=new CandidateResult(sb.toString(),1);
+                break;
+            } else{
+                sb=new StringBuilder(query);
+                index=query.indexOf(' ',index+1);
+            }
+        }
+
+        //insert space
+        for(int i=1;i<query.length();i++){
+            str=query.substring(0,i)+' '+query.substring(i);
+            boolean valid=true;
+            for(String token:str.split("\\s+")){
+                if (languageModel.unigram.count(token)==0){
+                    valid=false;
+                    index=query.indexOf(' ',index);
+                }
+            }
+            if (valid){
+                CandidateResult cr = new CandidateResult(str,1);
+                result.add(cr);
+                break;
+            }
+        }
+        return result;
+    }
+
 
     public void setLanguageModel(LanguageModel languageModel) {
         this.languageModel = languageModel;
