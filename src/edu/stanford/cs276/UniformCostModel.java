@@ -10,17 +10,17 @@ public class UniformCostModel implements EditCostModel {
 	private static final long serialVersionUID = 1L;
 
 
-    private static final double EDIT_PROB = 0.05;
-    private static final double MATCH_PROB = 0.95;
+    private static final double EDIT_PROB = 0.1;
+    private static final double MATCH_PROB = 0.98;
 	
   @Override
   public double editProbability(String original, String R, int distance) {
       if (R.equals(original)){
-          return 0.98;
+          return MATCH_PROB;
       }
       if (distance<=1)
-          return 0.1;
+          return EDIT_PROB;
       else
-          return 0.1/(Math.pow(distance,2));
+          return EDIT_PROB/(Math.pow(distance,2));
   }
 }
